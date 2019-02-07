@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Vaccine-Alerter-Client</string>
+    <string name="action_settings">Settings</string>
+
+
+
+
+    <!--  Into Activity -->
+    <string name="input_id">Id number</string>
+    <string name="btn_continue">Continue</string>
+
+
+
+</resources>
