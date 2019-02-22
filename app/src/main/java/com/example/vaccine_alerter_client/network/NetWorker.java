@@ -25,8 +25,8 @@ public class NetWorker {
 
     }
 
-    public void loadChildren(Activity activity, Context context, String id){
-        loadContentListener = (LoadContentListener) activity;
+    public void loadChildren( Context context, String id){
+        loadContentListener = (LoadContentListener) context;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, Const.GET_CHILDREN_URL+id, null, new Response.Listener<JSONObject>() {
@@ -82,9 +82,9 @@ public class NetWorker {
 
         NetworkSingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
-    public void loadChildDetails(Activity activity, Context context,String id){
+    public void loadChildDetails(Context context,String id){
 
-        loadContentListener = (LoadContentListener) activity;
+        loadContentListener = (LoadContentListener) context;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, Const.GET_CHILDREN_DETAILS_URL+id, null, new Response.Listener<JSONObject>() {

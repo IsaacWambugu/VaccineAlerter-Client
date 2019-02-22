@@ -11,9 +11,11 @@ import com.example.vaccine_alerter_client.R;
 import com.example.vaccine_alerter_client.data.PreferenceManager;
 import com.example.vaccine_alerter_client.interfaces.LoadContentListener;
 import com.example.vaccine_alerter_client.network.NetWorker;
+import com.example.vaccine_alerter_client.util.Mtandao;
 import com.google.android.material.snackbar.Snackbar;
 import com.victor.loading.rotate.RotateLoading;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,13 +28,20 @@ public class Intro extends AppCompatActivity implements LoadContentListener {
     private View view;
     private RotateLoading rotateLoading;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        setUiConfig();
+        if(new PreferenceManager(this).getGuardianId()==-1){
+
+            setUiConfig();
+
+        }else{
+
+            goToMainActivity();
+
+        }
+
 
     }
 
@@ -59,7 +68,13 @@ public class Intro extends AppCompatActivity implements LoadContentListener {
                 }
                 else{
 
-                    verifyGuardianId(guardianId.getText().toString());
+                    if(Mtandao.checkInternet(getApplicationContext())) {
+
+                        verifyGuardianId(guardianId.getText().toString());
+                    }else{
+
+                        showSnackBar("Check internet Connection and try again!");
+                    }
 
                 }
 
@@ -71,9 +86,13 @@ public class Intro extends AppCompatActivity implements LoadContentListener {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
-    private void saveGuardianId(){
+    private void saveGuardianDetails(int id, String names, String gender, String phoneNumber){
+
         PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
-        preferenceManager.setGuardianId(Integer.parseInt(guardianId.getText().toString()));
+        preferenceManager.setGuardianId(id);
+        preferenceManager.setGuardianName(names);
+        preferenceManager.setGuardianGender(gender);
+        preferenceManager.setGuardianNumber(phoneNumber);
 
     }
     private void showSnackBar(String mesg){
@@ -103,12 +122,30 @@ public class Intro extends AppCompatActivity implements LoadContentListener {
     @Override
     public void onLoadValidResponse(JSONObject response) {
 
-        Log.d("Response--->", response.toString());
-        saveGuardianId();
+        Log.d("valid id--->", response.toString());
+
+        try {
+
+            int id = response.getInt("guardian_id");
+            String name = response.getJSONObject("details").getString("full_name");
+            String gender = response.getJSONObject("details").getString("gender");
+            String phoneNo = String.valueOf(response.getJSONObject("details").getString("phone_number"));
+
+            saveGuardianDetails(id, name, gender, phoneNo);
+
+        }catch(JSONException jsonE){
+
+            Log.d("Err---->", jsonE.toString());
+        }
+
         rotateLoading.stop();
         continueBtn.setVisibility(View.VISIBLE);
         moveToMainActivity();
 
+    }
+    private void goToMainActivity(){
+
+        startActivity(new Intent(this,MainActivity.class));
     }
 
 }

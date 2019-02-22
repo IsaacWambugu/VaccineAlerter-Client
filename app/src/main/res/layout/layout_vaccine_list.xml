@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="?attr/actionBarSize"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+        >
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="At Birth"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/fab_margin"/>
+
+        <include layout="@layout/cardview_bcg1_details"/>
+        <include layout="@layout/cardview_opv1_details"/>
+        <include layout="@layout/cardview_hepb1_details"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="At 6 Weeks"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:gravity="center_horizontal"
+            />
+
+        <include layout="@layout/cardview_dpt1_details"/>
+        <include layout="@layout/cardview_opv2_details"/>
+        <include layout="@layout/cardview_hepb2_details"/>
+        <include layout="@layout/cardview_hib1_details" />
+        <include layout="@layout/cardview_pneu_details" />
+        <include layout="@layout/cardview_rota1_details" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:gravity="center_horizontal"
+            android:text="14 weeks"/>
+
+        <include layout="@layout/cardview_opv3_details"/>
+        <include layout="@layout/cardview_hepb3_details"/>
+        <include layout="@layout/cardview_dpt2_details"/>
+        <include layout="@layout/cardview_hib2_details"/>
+        <include layout="@layout/cardview_vita1_details"/>
+        <include layout="@layout/cardview_rota2_details"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6 Months"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/fab_margin"/>
+
+        <include layout="@layout/cardview_vita2_details"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:gravity="center_horizontal"
+            android:text="9 Months"/>
+
+        <include layout="@layout/cardview_meas_details"/>
+        <include layout="@layout/cardview_yellow_details"/>
+
+
+    </LinearLayout>

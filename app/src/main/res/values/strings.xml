@@ -9,6 +9,24 @@
     <string name="input_id">Id number</string>
     <string name="btn_continue">Continue</string>
 
+    <!-- Vaccine names -->
+    <string name="bcg">BCG (Tuberculosis)</string>
+    <string name="opv">OPV (Polio)</string>
+    <string name="hep_b">HEP.B (Hepatitis B)</string>
+    <string name="dpt">DPT (Tuberculosis)</string>
+    <string name="hib">HIB (Haemophilae Influenza B)</string>
+    <string name="pneu">PNEUMOCOCCAL (Pneumonia)</string>
+    <string name="rota">ROTA VIRUS (Rotavirus)</string>
+    <string name="vit_a">VIT A (Vitamin A Deficiency)</string>
+    <string name="measles">MEASLES </string>
+    <string name="yellow">YELLOW FEVER </string>
+
+    <string name="days">Days</string>
+    <string name="date">N/A</string>
+    <string name="status">N/A</string>
+
+    <!-- navigation bar -->
+    <string name="nav_log">Log Out</string>
 
 
 </resources>

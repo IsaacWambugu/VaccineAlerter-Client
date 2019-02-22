@@ -19,7 +19,7 @@
         android:paddingRight="@dimen/padding_list_row">
 
         <TextView
-            android:id="@+id/list_gender"
+            android:id="@+id/list_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -29,7 +29,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/list_first_name"
+            android:id="@+id/list_last_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -39,7 +39,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/list_last_name"
+            android:id="@+id/list_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
@@ -39,24 +40,24 @@
                 >
 
                 <TextView
+                    android:id="@+id/bcg1_days"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="07"
-                    android:id="@+id/text_view_date"
                     android:layout_gravity="center_horizontal"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                     android:paddingBottom="@dimen/md_button_inset_horizontal"
-                    android:textColor="#0000EE"
-                    />
+                    android:text="Date"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                    android:textColor="#0000EE" />
 
                 <TextView
+                    android:id="@+id/vaccine_days1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="May"
-                    android:id="@+id/text_view_month"
                     android:layout_gravity="center_horizontal"
+                    android:text="@string/days"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                     android:textColor="#0000EE"
+                    tools:text="@string/days"
 
                     />
             </LinearLayout>
@@ -80,13 +81,14 @@
                 >
 
                 <TextView
+                    android:id="@+id/vaccine_title1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                    android:textSize="16sp"
-                    tools:text="OD3434343423"
                     android:textColor="#ff0000"
-                    android:id="@+id/text_view_order_id"
+                    android:textSize="16sp"
+                    android:text="@string/bcg"
+
 
                     />
 
@@ -97,14 +99,15 @@
                     android:paddingTop="@dimen/item_margin"
 
                     >
+
                     <TextView
+                        android:id="@+id/bcg1_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="N/A"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        tools:text="Price"
-                        android:id="@+id/text_view_price"
 
-                        />
+                        tools:text="@string/date" />
 
 
 
@@ -137,23 +140,24 @@
 
 
             <TextView
+                android:id="@+id/bcg1_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                tools:text="Status"
-                android:id="@+id/text_view_status"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:layout_gravity="end"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:padding="@dimen/md_simplelistitem_padding_top"
-                android:background="@drawable/rounded_corners"
                 android:alpha="0.85"
+                android:background="@drawable/rounded_corners"
+                android:padding="@dimen/md_simplelistitem_padding_top"
+                android:text="N/A"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#000000"
-                />
+
+                 />
 
         </LinearLayout>
 
 
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

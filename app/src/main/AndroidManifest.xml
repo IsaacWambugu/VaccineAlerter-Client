@@ -3,27 +3,26 @@
     package="com.example.vaccine_alerter_client">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:enabled="true"
 
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <!--android:theme="@style/SplashTheme"-->
-        <activity android:name=".activities.Splash"
-            >
 
-        </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             >
-
-
 
         </activity>
        <activity
@@ -32,6 +31,7 @@
            android:theme="@style/AppTheme.NoActionBar"
            >
            <intent-filter>
+               <action android:name="android.intent.action.VIEW" />
                <action android:name="android.intent.action.MAIN" />
 
                <category android:name="android.intent.category.LAUNCHER" />
@@ -40,10 +40,55 @@
        </activity>
         <activity
 
-            android:name=".activities.VaccineListActivity">
+            android:parentActivityName=".activities.MainActivity"
+            android:name=".activities.VaccineListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
+
+        <receiver
+            android:name=".receivers.OnBootReceiver"
+            android:enabled="false"
+            android:exported="true"
+
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.REBOOT"/>
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </receiver>
+
+
+        <receiver
+            android:name=".receivers.ConnectionReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </receiver>
+
+
+        <service
+        android:name=".services.VaccineCheckerService"
+            android:enabled="true"
+            android:exported="true"
+        >
+
+      </service>
+
+        <service
+            android:name=".jobs.VaccineCheckerJob"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 </manifest>

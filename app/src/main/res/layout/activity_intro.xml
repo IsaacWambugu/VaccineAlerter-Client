@@ -40,9 +40,6 @@
                 android:inputType="number"
                 android:hint="@string/input_id" />
         </com.google.android.material.textfield.TextInputLayout>
-
-
-
         <Button
             android:id="@+id/btn_continue"
             android:layout_width="fill_parent"

@@ -68,10 +68,15 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.ViewHo
 
         final ChildModel childrenModelHolder = childrenData.get(position);
 
+        String firstName  = childrenModelHolder.getFirstName();
+        String lastName   = childrenModelHolder.getLastName();
+        String initials   = firstName.substring(0, 1).toUpperCase()+lastName.substring(0, 1).toUpperCase();
+
+
         holder.gender_view.setText(childrenModelHolder.getGender());
-        holder.first_name_view.setText(childrenModelHolder.getFirstName());
-        holder.last_name_view.setText(childrenModelHolder.getLastName());
-        holder.icon.setText("IW");
+        holder.first_name_view.setText(firstName);
+        holder.last_name_view.setText(lastName);
+        holder.icon.setText(initials);
         if(childrenModelHolder.getVaccineDue()){
 
             holder.icon_profile.setBackgroundResource(R.drawable.bg_red_circle);
@@ -89,7 +94,7 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.ViewHo
             public void onClick(View v) {
 
                 Intent intent  = new Intent(context, VaccineListActivity.class);
-                intent.putExtra("siteId",childrenModelHolder.getId());
+                intent.putExtra("siteId",String.valueOf(childrenModelHolder.getId()));
 
                 context.startActivity(intent);
             }
