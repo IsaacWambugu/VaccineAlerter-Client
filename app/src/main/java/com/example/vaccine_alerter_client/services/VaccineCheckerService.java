@@ -50,6 +50,8 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
         }else{
 
                 new NetWorker().loadChildren(this,String.valueOf(id));
+
+                Log.d("--->","Network call from service");
         }
     }
 
@@ -59,7 +61,7 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
 
     }
     public void onLoadErrorResponse(String response){
-
+        Log.d("----->","Service response");
 
         stopSelf();
 
@@ -67,11 +69,11 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
 
     private void extractJSONResponse(JSONObject json){
 
+        Log.d("----->","Service response");
 
         try {
 
             for (int i = 0; i < json.getJSONArray("children").length(); i++) {
-
 
 
                 int id = json.getJSONArray("children").getJSONObject(i).getInt("id");
@@ -132,7 +134,7 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
 
     private void showNotification(int id, String firstName, String lastName){
 
-        startForeground(1,new Notification());
+        startForeground(12,new Notification());
         Intent intent = new Intent(this, VaccineListActivity.class);
         intent.putExtra("siteId",String.valueOf(id));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

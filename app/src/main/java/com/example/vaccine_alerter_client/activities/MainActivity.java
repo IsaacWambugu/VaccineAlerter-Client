@@ -29,6 +29,7 @@ import com.example.vaccine_alerter_client.models.ChildModel;
 import com.example.vaccine_alerter_client.network.NetWorker;
 import com.example.vaccine_alerter_client.others.DividerItemDecoration;
 import com.example.vaccine_alerter_client.receivers.OnBootReceiver;
+import com.example.vaccine_alerter_client.schedulers.VaccineCheckSchedule;
 import com.example.vaccine_alerter_client.services.VaccineCheckerService;
 import com.example.vaccine_alerter_client.util.Mtandao;
 import com.google.android.material.navigation.NavigationView;
@@ -86,12 +87,6 @@ public class MainActivity extends AppCompatActivity implements LoadContentListen
     }
 
     protected void setUIComponents() {
-
-        /*
-        nav_names.setText(new PreferenceManager(this).getGuardianName());
-        nav_number.setText(new PreferenceManager(this).getGuardianNumber());
-        nav_gender.setText(new PreferenceManager(this).getGuardianGender());
-        */
 
 
         view = getWindow().getDecorView().getRootView();
@@ -330,29 +325,11 @@ public class MainActivity extends AppCompatActivity implements LoadContentListen
 
     private void  stopScheduledJob(){
 
-        alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, VaccineCheckerService.class);
-        alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-
-        if (alarmMgr!= null) {
-            alarmMgr.cancel(alarmIntent);
-        }
+        VaccineCheckSchedule.stopVaccineChecker(this);
     }
     private void scheduleJob() {
 
-        Log.d("---->13:10 job", "Job scheduled!");
-
-        alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, VaccineCheckerService.class);
-        alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 13);
-        calendar.set(Calendar.MINUTE, 10);
-
-        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, alarmIntent);
+        VaccineCheckSchedule.startVaccineChecker(this);
     }
 
     @Override

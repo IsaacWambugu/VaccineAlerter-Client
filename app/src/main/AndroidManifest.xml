@@ -62,7 +62,12 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name=".receivers.DailyCheckReceiver"
+            android:enabled="true"
+            android:exported="true">
 
+        </receiver>
         <receiver
             android:name=".receivers.ConnectionReceiver"
             android:enabled="true"

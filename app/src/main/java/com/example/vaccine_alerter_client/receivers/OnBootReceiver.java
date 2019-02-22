@@ -1,8 +1,5 @@
 package com.example.vaccine_alerter_client.receivers;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +7,7 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.vaccine_alerter_client.schedulers.VaccineCheckSchedule;
 import com.example.vaccine_alerter_client.services.VaccineCheckerService;
 
 public class OnBootReceiver extends BroadcastReceiver {
@@ -30,9 +28,8 @@ public class OnBootReceiver extends BroadcastReceiver {
 
             if (Intent.ACTION_BOOT_COMPLETED.equals(action) || ACTION_QUICK_BOOT.equals(action)) {
 
-
                 startServiceDirectly(context);
-               // startServiceByAlarm(context);
+                VaccineCheckSchedule.startVaccineChecker(context);
 
         }
     }
@@ -56,33 +53,7 @@ public class OnBootReceiver extends BroadcastReceiver {
                     context.startService(startServiceIntent);
                 }
 
-
-
             }
 
 
-
-    /* Create an repeat Alarm that will invoke the background service for each execution time.
-     * The interval time can be specified by your self.  */
-    private void startServiceByAlarm(Context context)
-    {
-        // Get alarm manager.
-        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-
-        // Create intent to invoke the background service.
-        Intent intent = new Intent(context, VaccineCheckerService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        long startTime = System.currentTimeMillis();
-        long intervalTime = 60*1000;
-
-        String message = "Start service use repeat alarm. ";
-
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-
-        Log.d(TAG_BOOT_BROADCAST_RECEIVER, message);
-
-        // Create repeat alarm.
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, startTime, intervalTime, pendingIntent);
-    }
 }
