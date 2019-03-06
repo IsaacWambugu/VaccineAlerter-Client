@@ -24,10 +24,12 @@ public class VaccineCheckSchedule {
         Intent intent = new Intent(context, DailyCheckReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
+
+        //schedules every day at 8AM
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 10);
+        calendar.set(Calendar.HOUR_OF_DAY,16);
+        calendar.set(Calendar.MINUTE, 30);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
