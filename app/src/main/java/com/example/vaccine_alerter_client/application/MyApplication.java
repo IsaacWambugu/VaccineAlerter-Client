@@ -1,30 +1,53 @@
 package com.example.vaccine_alerter_client.application;
 
 import android.app.Application;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
+import com.example.vaccine_alerter_client.activities.SplashActivity;
+import com.example.vaccine_alerter_client.data.Const;
+import com.example.vaccine_alerter_client.data.PreferenceManager;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MyApplication extends Application {
-    // Called when the application is starting, before any other application objects have been created.
-    // Overriding this method is totally optional!
-    @Override
+
     public void onCreate() {
         super.onCreate();
-        // Required initialization logic here!
+        Fabric.with(this, new Crashlytics());
+
+        if(!domainCheck()){
+
+            Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+        }else{
+
+            Const.setDomain(new PreferenceManager(getApplicationContext()).getDomain());
+
+        }
     }
 
-    // Called by the system when the device configuration changes while your component is running.
-    // Overriding this method is totally optional!
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 
-    // This is called when the overall system is running low on memory,
-    // and would like actively running processes to tighten their belts.
-    // Overriding this method is totally optional!
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+    }
+    private boolean domainCheck(){
+
+        String domain = new PreferenceManager(getApplicationContext()).getDomain();
+
+        if(domain == null)
+            return false;
+        else
+            return true;
     }
 }
 

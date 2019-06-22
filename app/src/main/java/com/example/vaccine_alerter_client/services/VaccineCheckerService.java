@@ -5,25 +5,21 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+import android.util.Pair;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.vaccine_alerter_client.R;
-import com.example.vaccine_alerter_client.activities.VaccineListActivity;
+import com.example.vaccine_alerter_client.activities.ChildDetailsActivity;
 import com.example.vaccine_alerter_client.data.Const;
 import com.example.vaccine_alerter_client.data.PreferenceManager;
 import com.example.vaccine_alerter_client.interfaces.LoadContentListener;
-import com.example.vaccine_alerter_client.models.ChildModel;
 import com.example.vaccine_alerter_client.network.NetWorker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -39,8 +35,6 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
-
-        Log.d("----->","Service start");
         int id  = new PreferenceManager(this).getGuardianId();
 
         if( id == -1 ){
@@ -51,7 +45,6 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
 
                 new NetWorker().loadChildren(this,String.valueOf(id));
 
-                Log.d("--->","Network call from service");
         }
     }
 
@@ -60,8 +53,7 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
         extractJSONResponse(response);
 
     }
-    public void onLoadErrorResponse(String response){
-        Log.d("----->","Service response");
+    public void onLoadErrorResponse(Pair response){
 
         stopSelf();
 
@@ -69,7 +61,6 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
 
     private void extractJSONResponse(JSONObject json){
 
-        Log.d("----->","Service response");
 
         try {
 
@@ -124,7 +115,7 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
 
         } catch(JSONException jsonE){
 
-            Log.d("Err---->", jsonE.toString());
+            Crashlytics.logException(jsonE);
         }
         finally {
             stopSelf();
@@ -135,7 +126,7 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
     private void showNotification(int id, String firstName, String lastName){
 
         startForeground(12,new Notification());
-        Intent intent = new Intent(this, VaccineListActivity.class);
+        Intent intent = new Intent(this, ChildDetailsActivity.class);
         intent.putExtra("siteId",String.valueOf(id));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);

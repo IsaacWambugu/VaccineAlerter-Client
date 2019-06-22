@@ -1,16 +1,23 @@
 package com.example.vaccine_alerter_client.data;
 
+import android.util.Log;
+
 public class Const {
 
     //API calls
-    public static final String DOMAIN = "http://192.168.1.8:5657";
-    public static final String CHECK_GUARDIAN_URL = DOMAIN + "/api/guardians/";
-    public static final String GET_CHILDREN_URL = DOMAIN + "/api/children/";
-    public static final String GET_CHILDREN_DETAILS_URL = DOMAIN + "/api/children/details/";
+    public static String domain;
+    public static final String CHECK_GUARDIAN_PATH = "/api/guardians/";
+    public static final String GET_CHILDREN_PATH =  "/api/children/";
+    public static final String GET_CHILDREN_DETAILS_PATH ="/api/children/details/";
 
 
     //Notification
     public static final String CHANNEL_ID = "VaccineAlert";
 
+    public static void setDomain(String domain){
+
+        Const.domain = domain;
+        Log.d("---Setting domain:", domain);
+    }
 
 }

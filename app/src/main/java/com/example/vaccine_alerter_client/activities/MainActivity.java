@@ -1,61 +1,42 @@
 package com.example.vaccine_alerter_client.activities;
 
-
-import android.app.AlarmManager;
-import android.app.IntentService;
-import android.app.PendingIntent;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
-
+import com.crashlytics.android.Crashlytics;
 import com.example.vaccine_alerter_client.R;
 import com.example.vaccine_alerter_client.adapters.ChildrenAdapter;
 import com.example.vaccine_alerter_client.data.PreferenceManager;
+import com.example.vaccine_alerter_client.etc.DividerItemDecoration;
 import com.example.vaccine_alerter_client.interfaces.LoadContentListener;
-import com.example.vaccine_alerter_client.jobs.VaccineCheckerJob;
 import com.example.vaccine_alerter_client.models.ChildModel;
 import com.example.vaccine_alerter_client.network.NetWorker;
-import com.example.vaccine_alerter_client.others.DividerItemDecoration;
 import com.example.vaccine_alerter_client.receivers.OnBootReceiver;
 import com.example.vaccine_alerter_client.schedulers.VaccineCheckSchedule;
-import com.example.vaccine_alerter_client.services.VaccineCheckerService;
 import com.example.vaccine_alerter_client.util.Mtandao;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-public class MainActivity extends AppCompatActivity implements LoadContentListener,
+public class MainActivity extends BaseActivity implements LoadContentListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -65,8 +46,7 @@ public class MainActivity extends AppCompatActivity implements LoadContentListen
     private ChildrenAdapter childrenAdapter;
     private ArrayList<ChildModel> childrenList;
     private DrawerLayout drawerLayout;
-    private AlarmManager alarmMgr;
-    private PendingIntent alarmIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,55 +55,53 @@ public class MainActivity extends AppCompatActivity implements LoadContentListen
         loadChildren();
         enableOnBootReceiver();
         scheduleJob();
-
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     protected void setUIComponents() {
 
-
+        drawerLayout = findViewById(R.id.drawer_layout);
         view = getWindow().getDecorView().getRootView();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_children);
-        // activity_site_list = (View) findViewById(R.id.activity_rental_list_view);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.child_swipe_container);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        TextView nav_names = (TextView) header.findViewById(R.id.nav_names);
+        TextView nav_number = (TextView) header.findViewById(R.id.nav_number);
+        TextView nav_gender = (TextView) header.findViewById(R.id.nav_gender);
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar_main);
-        toolbar.setTitle("Children List");
+        toolbar.setTitle("Children");
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_launcher_foreground);
-
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_hamburger);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
                         menuItem.setChecked(true);
-                        // close drawer when item is tapped
                         drawerLayout.closeDrawers();
-
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-
                         return true;
                     }
                 });
+        nav_names.setText(new PreferenceManager(this).getGuardianName());
+        nav_number.setText(new PreferenceManager(this).getGuardianNumber());
+        nav_gender.setText(new PreferenceManager(this).getGuardianGender());
 
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.bringToFront();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
@@ -140,65 +118,15 @@ public class MainActivity extends AppCompatActivity implements LoadContentListen
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
 
                 android.R.color.holo_green_light,
-
                 android.R.color.holo_orange_light,
-
                 android.R.color.holo_red_light);
 
         childrenList = new ArrayList<>();
         childrenAdapter = new ChildrenAdapter(childrenList);
-        //recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(childrenAdapter);
-
-        View header = navigationView.getHeaderView(0);
-        TextView nav_names = (TextView) header.findViewById(R.id.nav_names);
-        TextView nav_number = (TextView) header.findViewById(R.id.nav_number);
-        TextView nav_gender = (TextView) header.findViewById(R.id.nav_gender);
-
-        nav_names.setText(new PreferenceManager(this).getGuardianName());
-        nav_number.setText(new PreferenceManager(this).getGuardianNumber());
-        nav_gender.setText(new PreferenceManager(this).getGuardianGender());
-
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.bringToFront();
-
-
-
-
-/*
-        sitesData       = new ArrayList<>();
-        sitesAdapter    = new SitesAdapter(sitesData,SiteListActivity.this, addStatus);
-        recyclerView    = (RecyclerView) findViewById(R.id.rental_list_recycler_view);
-
-        Configuration orientation = new Configuration();
-
-        if(this.recyclerView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-        } else if (this.recyclerView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        }
-
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(sitesAdapter);
-
-        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
-            @Override
-            public void onLoadMore() {
-
-                Log.d("Paginating--->","Please wait");
-                progressBar.setVisibility(View.VISIBLE);
-                if(!addStatus && !endPagination) {
-
-                    loadSiteData();
-                }
-
-            }
-        });
-        */
 
     }
 
@@ -212,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements LoadContentListen
 
         } else {
 
-            showSnackBar("Check internet connection and try again!");
+            showAlertSnackBar(view,"Check internet connection and try again!");
             swipeRefreshLayout.setRefreshing(false);
         }
     }
@@ -235,22 +163,14 @@ public class MainActivity extends AppCompatActivity implements LoadContentListen
     }
 
     @Override
-    public void onLoadErrorResponse(String response) {
+    public void onLoadErrorResponse(Pair response) {
 
         swipeRefreshLayout.setRefreshing(false);
-        showSnackBar("Something went wrong.Try again later");
-
-    }
-
-    private void showSnackBar(String mesg) {
-
-        Snackbar.make(view, mesg, Snackbar.LENGTH_SHORT)
-                .show();
+        showAlertSnackBar(view,response.second.toString());
 
     }
 
     private void extractJSONResponse(JSONObject json) {
-
 
         try {
 
@@ -307,26 +227,28 @@ public class MainActivity extends AppCompatActivity implements LoadContentListen
 
             }
 
-            Log.d("Children------->", childrenList.toString());
         } catch (JSONException jsonE) {
-
-
-            Log.d("Err---->", jsonE.toString());
+            Crashlytics.logException(jsonE);
+            exitApp();
         }
-
 
     }
 
     public void displayChildrenList() {
 
+        int resId = R.anim.layout_animation_down_to_up;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getApplicationContext(), resId);
+        recyclerView.setLayoutAnimation(animation);
         childrenAdapter.notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
 
     }
 
-    private void  stopScheduledJob(){
+    private void stopScheduledJob() {
 
         VaccineCheckSchedule.stopVaccineChecker(this);
     }
+
     private void scheduleJob() {
 
         VaccineCheckSchedule.startVaccineChecker(this);
@@ -343,23 +265,19 @@ public class MainActivity extends AppCompatActivity implements LoadContentListen
     }
 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        Log.d("---->","Sign out");
+        int id = item.getItemId();
         if (id == R.id.nav_log_out) {
 
-            Log.d("---->","Sign out");
-            Intent intent = new Intent(this, Intro.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             clearGuardianDetails();
             stopScheduledJob();
             startActivity(intent);
-
         }
         return true;
     }
 
-    private void clearGuardianDetails(){
+    private void clearGuardianDetails() {
 
         PreferenceManager preferenceManager = new PreferenceManager(this);
         preferenceManager.setGuardianNumber(null);
@@ -368,13 +286,11 @@ public class MainActivity extends AppCompatActivity implements LoadContentListen
         preferenceManager.setGuardianName(null);
 
     }
-    private void enableOnBootReceiver(){
 
-        Log.d("----->","On BootReceiver enabled!");
+    private void enableOnBootReceiver() {
 
         ComponentName receiver = new ComponentName(this, OnBootReceiver.class);
         PackageManager pm = this.getPackageManager();
-
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);

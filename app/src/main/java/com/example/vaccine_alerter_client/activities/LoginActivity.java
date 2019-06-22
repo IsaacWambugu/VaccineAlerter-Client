@@ -3,25 +3,25 @@ package com.example.vaccine_alerter_client.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.vaccine_alerter_client.R;
 import com.example.vaccine_alerter_client.data.PreferenceManager;
 import com.example.vaccine_alerter_client.interfaces.LoadContentListener;
 import com.example.vaccine_alerter_client.network.NetWorker;
 import com.example.vaccine_alerter_client.util.Mtandao;
-import com.google.android.material.snackbar.Snackbar;
 import com.victor.loading.rotate.RotateLoading;
 
+import io.fabric.sdk.android.Fabric;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-
-public class Intro extends AppCompatActivity implements LoadContentListener {
+public class LoginActivity extends BaseActivity implements LoadContentListener {
 
     private Button continueBtn;
     private EditText guardianId;
@@ -31,6 +31,7 @@ public class Intro extends AppCompatActivity implements LoadContentListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_intro);
         if(new PreferenceManager(this).getGuardianId()==-1){
 
@@ -41,7 +42,6 @@ public class Intro extends AppCompatActivity implements LoadContentListener {
             goToMainActivity();
 
         }
-
 
     }
 
@@ -59,11 +59,12 @@ public class Intro extends AppCompatActivity implements LoadContentListener {
 
                 if(guardianId.getText().toString().trim().length() == 0){
 
-                    showSnackBar("Provide Id number before you proceed");
+                    LoginActivity.super.showAlertSnackBar(view,"Provide Id number before you proceed");
 
                 }else if(guardianId.getText().toString().trim().length() < 5){
 
-                    showSnackBar("Provide a valid Id number and try again");
+                    LoginActivity.super.showAlertSnackBar(view,"Provide a valid Id number and try again");
+
 
                 }
                 else{
@@ -73,7 +74,8 @@ public class Intro extends AppCompatActivity implements LoadContentListener {
                         verifyGuardianId(guardianId.getText().toString());
                     }else{
 
-                        showSnackBar("Check internet Connection and try again!");
+                        LoginActivity.super.showAlertSnackBar(view,"Check internet Connection and try again!");
+
                     }
 
                 }
@@ -95,47 +97,45 @@ public class Intro extends AppCompatActivity implements LoadContentListener {
         preferenceManager.setGuardianNumber(phoneNumber);
 
     }
-    private void showSnackBar(String mesg){
 
-        Snackbar.make(view,mesg, Snackbar.LENGTH_SHORT)
-                .show();
-
-    }
     private void verifyGuardianId(String id){
 
-        continueBtn.setVisibility(View.INVISIBLE);
+        continueBtn.setVisibility(View.GONE);
         rotateLoading.start();
         new NetWorker().checkGuardian(this,this,id);
 
     }
 
     @Override
-    public void onLoadErrorResponse(String response) {
+    public void onLoadErrorResponse(Pair response) {
        // rotateLoading.setVisibility(View.GONE);
         rotateLoading.stop();
         continueBtn.setText("Retry");
         continueBtn.setVisibility(View.VISIBLE);
+        showAlertSnackBar(view,response.second.toString());
 
-        showSnackBar("Check Id number and try again!");
     }
 
     @Override
     public void onLoadValidResponse(JSONObject response) {
 
-        Log.d("valid id--->", response.toString());
-
         try {
 
             int id = response.getInt("guardian_id");
-            String name = response.getJSONObject("details").getString("full_name");
+            String fname = response.getJSONObject("details").getString("fname");
+            String lname = response.getJSONObject("details").getString("lname");
             String gender = response.getJSONObject("details").getString("gender");
             String phoneNo = String.valueOf(response.getJSONObject("details").getString("phone_number"));
 
-            saveGuardianDetails(id, name, gender, phoneNo);
+            String fullName = fname + " "+ lname;
+            saveGuardianDetails(id, fullName, gender, phoneNo);
+
 
         }catch(JSONException jsonE){
 
-            Log.d("Err---->", jsonE.toString());
+            Crashlytics.logException(jsonE);
+            Log.d("---->",jsonE.toString());
+            exitApp();
         }
 
         rotateLoading.stop();
@@ -146,6 +146,13 @@ public class Intro extends AppCompatActivity implements LoadContentListener {
     private void goToMainActivity(){
 
         startActivity(new Intent(this,MainActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        exitApp();
     }
 
 }

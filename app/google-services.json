@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "263985329021",
+    "firebase_url": "https://v-alerter-doctor.firebaseio.com",
+    "project_id": "v-alerter-doctor",
+    "storage_bucket": "v-alerter-doctor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263985329021:android:ec15e0fb45011000",
+        "android_client_info": {
+          "package_name": "com.example.vaccine_alerter_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263985329021-64tgbjctcpnbpr471g8nv5hhttscurf4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vaccine_alerter_client",
+            "certificate_hash": "cd19592530170e58230550532894a887afce7198"
+          }
+        },
+        {
+          "client_id": "263985329021-97hgtchl3slu74nk472ndkasnhqmorte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDWiaULfxc1fdejp26ZIzGFriBrYui1pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263985329021-97hgtchl3slu74nk472ndkasnhqmorte.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263985329021:android:6afac4337f53b5bb",
+        "android_client_info": {
+          "package_name": "com.example.vaccine_alerter_doctor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263985329021-23r5pjo88uo3ursvfjrolua6j2m14ms3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vaccine_alerter_doctor",
+            "certificate_hash": "cd19592530170e58230550532894a887afce7198"
+          }
+        },
+        {
+          "client_id": "263985329021-97hgtchl3slu74nk472ndkasnhqmorte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDWiaULfxc1fdejp26ZIzGFriBrYui1pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263985329021-97hgtchl3slu74nk472ndkasnhqmorte.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

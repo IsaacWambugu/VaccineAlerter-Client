@@ -51,7 +51,6 @@ public class VaccineCheckSchedule {
         if (alarmMgr != null) {
             alarmMgr.cancel(alarmIntent);
 
-
         }
     }
 }

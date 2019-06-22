@@ -15,11 +15,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="72dp"
-        android:paddingRight="@dimen/padding_list_row">
+        android:paddingStart="72dp"
+        android:paddingEnd="@dimen/padding_list_row"
+        android:layout_marginStart="@dimen/add_left_right_margin">
 
         <TextView
-            android:id="@+id/list_first_name"
+            android:id="@+id/list_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -29,13 +30,12 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/list_last_name"
+            android:id="@+id/list_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
             android:lines="1"
             android:textColor="#000000"
-            android:textSize="@dimen/msg_text_secondary"
+            android:textSize="@dimen/msg_text_primary"
             android:textStyle="bold" />
 
         <TextView
@@ -54,8 +54,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-
 
         <RelativeLayout
             android:id="@+id/icon_front"

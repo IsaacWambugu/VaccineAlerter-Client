@@ -1,163 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ff5445"
-    android:layout_marginTop="@dimen/md_button_inset_horizontal"
-    android:layout_marginBottom="@dimen/md_button_inset_horizontal"
-    android:layout_marginRight="8dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
     android:layout_marginLeft="8dp"
-    app:cardCornerRadius="2dp"
-    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/md_button_inset_horizontal"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="@dimen/md_button_inset_horizontal"
+    android:background="#ff5445"
     android:foreground="?attr/selectableItemBackground"
-    >
-
-    <LinearLayout
+    android:orientation="horizontal"
+    app:cardCornerRadius="2dp">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingBottom="8dp"
-        >
+        android:background="@color/white">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:rowCount="2"
-            android:columnCount="4"
-            >
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingTop="@dimen/activity_horizontal_margin"
-
-                >
-
-                <TextView
-                    android:id="@+id/bcg1_days"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingBottom="@dimen/md_button_inset_horizontal"
-                    android:text="Date"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                    android:textColor="#0000EE" />
-
-                <TextView
-                    android:id="@+id/vaccine_days1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/days"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                    android:textColor="#0000EE"
-                    tools:text="@string/days"
-
-                    />
-            </LinearLayout>
-
-
-            <View
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:layout_width="@dimen/cardview_compat_inset_shadow"
-                android:layout_height="60dp"
-                android:background="#000000"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:alpha="0.12"
-                />
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
-                >
-
-                <TextView
-                    android:id="@+id/vaccine_title1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                    android:textColor="#ff0000"
-                    android:textSize="16sp"
-                    android:text="@string/bcg"
-
-
-                    />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="@dimen/item_margin"
-
-                    >
-
-                    <TextView
-                        android:id="@+id/bcg1_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="N/A"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-
-                        tools:text="@string/date" />
-
-
-
-                </LinearLayout>
-
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="vertical"
-
-            >
-            <View
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000000"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:alpha="0.12"
-                />
-
+            android:paddingTop="10dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/linear1"
+            android:padding="10dp">
 
             <TextView
-                android:id="@+id/bcg1_status"
+                android:id="@+id/bcg1_days"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:alpha="0.85"
-                android:background="@drawable/rounded_corners"
-                android:padding="@dimen/md_simplelistitem_padding_top"
-                android:text="N/A"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="#000000"
+                android:paddingBottom="@dimen/md_button_inset_horizontal"
+                android:text="Date"
+                android:textSize="15dp"
+                android:textColor="#0000EE" />
 
-                 />
-
+            <TextView
+                android:id="@+id/vaccine_days1"
+                style="@style/days_text" />
         </LinearLayout>
 
+        <View
+            android:layout_width="@dimen/cardview_compat_inset_shadow"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:alpha="0.12"
+            android:background="#000000"
+            android:layout_toEndOf="@+id/linear1"
+            android:id="@+id/separator" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
+            android:layout_toEndOf="@+id/separator">
 
+            <TextView
+                android:id="@+id/vaccine_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bcg"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:textColor="#ff0000"
+                android:textSize="@dimen/vaccine_title_size"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/item_margin">
+
+                <TextView
+                    android:id="@+id/bcg1_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    tools:text="@string/date" />
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/bcg1_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

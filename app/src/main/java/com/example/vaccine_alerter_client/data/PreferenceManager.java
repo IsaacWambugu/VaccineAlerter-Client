@@ -45,6 +45,16 @@ public class PreferenceManager {
 
         return sharedPref.getString("date", null);
     }
+    public void setDomain(String domain){
+
+        editor  = sharedPref.edit();
+        editor.putString("domain",domain);
+        editor.apply();
+    }
+    public String getDomain(){
+
+        return sharedPref.getString("domain", null);
+    }
 
     public void setGuardianName(String name){
 

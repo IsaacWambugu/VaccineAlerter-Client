@@ -12,18 +12,6 @@ public class DailyCheckReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Intent startServiceIntent = new Intent(context, VaccineCheckerService.class);
-
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            context.stopService(startServiceIntent);
-            context.startForegroundService(startServiceIntent);
-
-        } else {
-
-            context.stopService(startServiceIntent);
-            context.startService(startServiceIntent);
-        }
-        */
         context.startService(startServiceIntent);
     }
 }

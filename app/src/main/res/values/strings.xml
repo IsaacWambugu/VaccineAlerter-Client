@@ -1,10 +1,8 @@
 <resources>
-    <string name="app_name">Vaccine-Alerter-Client</string>
+    <string name="app_name">V-Alerter(Client)</string>
     <string name="action_settings">Settings</string>
 
-
-
-
+    <string name="child_profile">Child Profile</string>
     <!--  Into Activity -->
     <string name="input_id">Id number</string>
     <string name="btn_continue">Continue</string>
@@ -27,6 +25,9 @@
 
     <!-- navigation bar -->
     <string name="nav_log">Log Out</string>
+    <!---Global-->
+    <string name="ok">OKAY</string>
+    <string name="Retry">RETRY</string>
 
 
 </resources>

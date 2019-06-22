@@ -7,12 +7,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.vaccine_alerter_client.data.PreferenceManager;
 import com.example.vaccine_alerter_client.services.VaccineCheckerService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import io.fabric.sdk.android.services.common.Crash;
 
 public class ConnectionReceiver extends BroadcastReceiver {
 
@@ -25,8 +28,6 @@ public class ConnectionReceiver extends BroadcastReceiver {
 
         this.context = context;
         //read internet connectivity state
-
-        Log.d("---->","Connection receiver");
 
         try {
 
@@ -48,14 +49,13 @@ public class ConnectionReceiver extends BroadcastReceiver {
                         || currentNetworkInfo.getState() == NetworkInfo.State.SUSPENDED ||
                         currentNetworkInfo.getState() == NetworkInfo.State.UNKNOWN)) {
 
-                    Log.d("---->", "No internet!!");
                     // when Internet is disconnected
                 }
 
             }
         } catch (NullPointerException npE) {
 
-            Log.d("---->", "Checking internet exception");
+            Crashlytics.logException(npE);
 
         }
 
