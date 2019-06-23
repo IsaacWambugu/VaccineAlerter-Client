@@ -133,7 +133,7 @@ public class VaccineCheckerJob extends JobService implements LoadContentListener
     private void showNotification(int id, String firstName, String lastName){
 
         Intent intent = new Intent(this, ChildDetailsActivity.class);
-        intent.putExtra("siteId",String.valueOf(id));
+        intent.putExtra("childId",String.valueOf(id));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 

@@ -28,7 +28,7 @@ public class VaccineCheckSchedule {
         //schedules every day at 8AM
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,16);
+        calendar.set(Calendar.HOUR_OF_DAY,9);
         calendar.set(Calendar.MINUTE, 30);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

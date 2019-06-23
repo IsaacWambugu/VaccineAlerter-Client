@@ -119,6 +119,17 @@ public class ChildDetailsActivity extends BaseActivity implements LoadContentLis
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+       if(id == android.R.id.home) {
+                moveToMainActivity();
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void setUIConfig() {
 
@@ -795,6 +806,10 @@ public class ChildDetailsActivity extends BaseActivity implements LoadContentLis
             }
 
         }.start();
+    }
+    @Override
+    public void onBackPressed() {
+        moveToMainActivity();
     }
 
 }

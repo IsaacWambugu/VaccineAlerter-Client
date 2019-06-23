@@ -32,7 +32,7 @@ public class LoginActivity extends BaseActivity implements LoadContentListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        setContentView(R.layout.activity_intro);
+        setContentView(R.layout.activity_login);
         if(new PreferenceManager(this).getGuardianId()==-1){
 
             setUiConfig();
