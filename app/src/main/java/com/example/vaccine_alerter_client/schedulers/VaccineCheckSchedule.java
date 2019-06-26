@@ -28,15 +28,15 @@ public class VaccineCheckSchedule {
         //schedules every day at 8AM
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,9);
-        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.HOUR_OF_DAY,13);
+        calendar.set(Calendar.MINUTE, 00);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmIntent);
+            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC, calendar.getTimeInMillis(), alarmIntent);
         } else {
 
-            alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+            alarmMgr.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, alarmIntent);
         }
     }

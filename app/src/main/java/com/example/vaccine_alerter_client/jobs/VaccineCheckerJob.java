@@ -27,6 +27,8 @@ import androidx.core.app.NotificationManagerCompat;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class VaccineCheckerJob extends JobService implements LoadContentListener {
 
+    private  String channelId = "VaccineAlert";
+
     @Override
     public boolean onStartJob(JobParameters params) {
 
@@ -137,7 +139,7 @@ public class VaccineCheckerJob extends JobService implements LoadContentListener
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, Const.CHANNEL_ID )
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, channelId  )
                 .setContentTitle("Vaccine Alert!")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentText(firstName + " " + lastName+" has a pending vaccine.Click to check")
@@ -149,7 +151,7 @@ public class VaccineCheckerJob extends JobService implements LoadContentListener
             CharSequence name = "Vaccine Alerter";
             String description = "Pending vaccine to be administered";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(Const.CHANNEL_ID, name, importance);
+            NotificationChannel channel = new NotificationChannel(channelId , name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this

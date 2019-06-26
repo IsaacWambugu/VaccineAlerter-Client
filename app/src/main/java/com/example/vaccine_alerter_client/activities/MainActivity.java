@@ -43,6 +43,7 @@ public class MainActivity extends BaseActivity implements LoadContentListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
+    private int backPressCount = 0;
     private Toolbar toolbar;
     private View view;
     private RecyclerView recyclerView;
@@ -150,8 +151,11 @@ public class MainActivity extends BaseActivity implements LoadContentListener,
 
     @Override
     public void onBackPressed() {
+        backPressCount++;
 
-        moveTaskToBack(false);
+        if(backPressCount>1){
+            exitApp();
+        }
 
     }
 

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.crashlytics.android.Crashlytics;
 import com.example.vaccine_alerter_client.R;
 import com.example.vaccine_alerter_client.data.PreferenceManager;
@@ -27,6 +29,7 @@ public class LoginActivity extends BaseActivity implements LoadContentListener {
     private EditText guardianId;
     private View view;
     private RotateLoading rotateLoading;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,8 @@ public class LoginActivity extends BaseActivity implements LoadContentListener {
     private void setUiConfig(){
 
         view = getWindow().getDecorView().getRootView();
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar_login);
+        toolbar.setTitle("Login");
         continueBtn = (Button) findViewById(R.id.btn_continue);
         guardianId = (EditText) findViewById(R.id.input_id);
         rotateLoading = (RotateLoading) findViewById(R.id.rotateloading);

@@ -6,6 +6,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
 
     private int checkerNotificationId = 101;
     private NotificationManagerCompat notificationManager;
+    private  String channelId = "VaccineAlert";
 
     public VaccineCheckerService() {
     super("VaccineCheckerService");
@@ -43,12 +45,13 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
         showNotification(checkerNotificationId);
 
         if( id == -1 ){
-            removeNotification(checkerNotificationId);
+            removeNotification();
             stopSelf();
 
         }else{
 
-                new NetWorker().loadChildren(this,String.valueOf(id));
+            Log.d("---->", "Network call");
+            new NetWorker().loadChildren(this,String.valueOf(id));
 
         }
     }
@@ -56,11 +59,13 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
     public void onLoadValidResponse(JSONObject response){
 
         extractJSONResponse(response);
-        removeNotification(checkerNotificationId);
+        Log.d("---->","Valid response");
+        //removeNotification(checkerNotificationId);
 
     }
     public void onLoadErrorResponse(Pair response){
 
+        Log.d("---->","Error response");
         stopSelf();
 
     }
@@ -124,21 +129,23 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
             Crashlytics.logException(jsonE);
         }
         finally {
+            removeNotification();
             stopSelf();
+
         }
 
     }
     private void showClickNotification(int id, String messageToShow){
 
-        startForeground(12,new Notification());
+        startForeground(13,new Notification());
         Intent intent = new Intent(this, ChildDetailsActivity.class);
         intent.putExtra("childId",String.valueOf(id));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, Const.CHANNEL_ID )
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, channelId )
                 .setContentTitle("Vaccine Alert!")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.ic_not_logo)
                 .setContentText(messageToShow)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
@@ -148,7 +155,7 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
             CharSequence name = "Vaccine Alerter";
             String description = "Pending vaccine to be administered";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(Const.CHANNEL_ID, name, importance);
+            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
@@ -163,35 +170,29 @@ public class VaccineCheckerService extends IntentService implements LoadContentL
     }
     private void showNotification(int id){
 
-        startForeground(12,new Notification());
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, Const.CHANNEL_ID )
-                .setContentTitle("Vaccine Alert!")
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentText("Checking pending vaccines")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Vaccine Alerter";
-            String description = "Checking pending vaccines";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(Const.CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+        if (Build.VERSION.SDK_INT >= 26) {
+
+            NotificationChannel channel = new NotificationChannel(channelId,
+                    "V-Alerter", NotificationManager.IMPORTANCE_DEFAULT);
+            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
+            Notification notification = new NotificationCompat.Builder(this, channelId)
+                    .setContentTitle("Vaccine Alert!")
+                    .setContentText("Checking vaccine Schedule").build();
+            startForeground(checkerNotificationId,notification);
         }
 
         notificationManager = NotificationManagerCompat.from(this);
         // notificationId is a unique int for each notification that you must define
-        notificationManager.notify(id, mBuilder.build());
 
     }
 
-    private void removeNotification(int id){
+    private void removeNotification(){
 
-        notificationManager.cancel(id);
+        if (Build.VERSION.SDK_INT >= 26) {
+            notificationManager.cancel(checkerNotificationId);
+            stopForeground(Service.STOP_FOREGROUND_DETACH);
+        }
     }
 }
 

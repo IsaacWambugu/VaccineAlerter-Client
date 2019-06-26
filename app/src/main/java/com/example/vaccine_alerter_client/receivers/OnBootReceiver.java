@@ -21,9 +21,9 @@ public class OnBootReceiver extends BroadcastReceiver {
         Log.d(TAG_BOOT_BROADCAST_RECEIVER, action);
 
             if (Intent.ACTION_BOOT_COMPLETED.equals(action) || ACTION_QUICK_BOOT.equals(action)) {
-
+                Log.d("--->OnReceive","Starting" );
                 startServiceDirectly(context);
-                VaccineCheckSchedule.startVaccineChecker(context);
+              //  VaccineCheckSchedule.startVaccineChecker(context);
 
         }
     }
@@ -34,11 +34,12 @@ public class OnBootReceiver extends BroadcastReceiver {
                 Intent startServiceIntent = new Intent(context,VaccineCheckerService.class );
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Log.d("--->in receiver","Starting" );
                     context.startForegroundService(startServiceIntent);
                 } else {
                     context.startService(startServiceIntent);
+                    Log.d("--->in receiver","Starting" );
                 }
 
             }
-
 }

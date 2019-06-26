@@ -1,5 +1,6 @@
 package com.example.vaccine_alerter_client.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -31,8 +32,11 @@ public class BaseActivity extends AppCompatActivity {
     }
     protected void exitApp(){
 
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
+        Intent start = new Intent(Intent.ACTION_MAIN);
+        start.addCategory(Intent.CATEGORY_HOME);
+        start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        start.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(start);
     }
 
 }

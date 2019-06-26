@@ -3,6 +3,7 @@ package com.example.vaccine_alerter_client.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,16 +36,21 @@ public class SplashActivity extends BaseActivity{
     private void getDomain(){
 
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        mFirebaseRemoteConfig.fetch(1000)
+        mFirebaseRemoteConfig.fetch(0)
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+
+                            mFirebaseRemoteConfig.activateFetched();
                             String domain = mFirebaseRemoteConfig.getString("domain");
+                            Log.d("----->","domain from firebase");
+                            Log.d("----->","domain:"+domain);
                             Const.setDomain(domain);
                             new PreferenceManager(getApplicationContext()).setDomain(domain);
-                            mFirebaseRemoteConfig.activateFetched();
+                           // mFirebaseRemoteConfig.activateFetched();
                             showSplashScreen();
+
                         } else {
 
                             showSnackBar();

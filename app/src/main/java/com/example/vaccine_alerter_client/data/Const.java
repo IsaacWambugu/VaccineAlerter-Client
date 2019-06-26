@@ -10,10 +10,6 @@ public class Const {
     public static final String GET_CHILDREN_PATH =  "/api/children/";
     public static final String GET_CHILDREN_DETAILS_PATH ="/api/children/details/";
 
-
-    //Notification
-    public static final String CHANNEL_ID = "VaccineAlert";
-
     public static void setDomain(String domain){
 
         Const.domain = domain;

@@ -43,7 +43,7 @@ public class PreferenceManager {
     }
     public String getDate(){
 
-        return sharedPref.getString("date", null);
+        return sharedPref.getString("date", "2019-01-01");
     }
     public void setDomain(String domain){
 
@@ -53,7 +53,7 @@ public class PreferenceManager {
     }
     public String getDomain(){
 
-        return sharedPref.getString("domain", null);
+        return sharedPref.getString("domain", "http://localhost:4000");
     }
 
     public void setGuardianName(String name){
@@ -65,7 +65,7 @@ public class PreferenceManager {
     }
     public String getGuardianName(){
 
-        return sharedPref.getString("guardian_name", null);
+        return sharedPref.getString("guardian_name", "Unknown");
     }
 
     public void setGuardianNumber(String number){
@@ -77,7 +77,7 @@ public class PreferenceManager {
     }
     public String getGuardianNumber(){
 
-        return sharedPref.getString("guardian_number", null);
+        return sharedPref.getString("guardian_number", "Unknown");
     }
 
     public void setGuardianGender(String gender){
@@ -89,6 +89,6 @@ public class PreferenceManager {
     }
     public String getGuardianGender(){
 
-        return sharedPref.getString("guardian_gender", null);
+        return sharedPref.getString("guardian_gender", "Gender");
     }
 }

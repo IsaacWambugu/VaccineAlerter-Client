@@ -44,7 +44,7 @@ public class MyApplication extends Application {
 
         String domain = new PreferenceManager(getApplicationContext()).getDomain();
 
-        if(domain == null)
+        if(domain.equals("http://localhost:4000"))
             return false;
         else
             return true;

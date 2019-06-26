@@ -28,6 +28,7 @@ public class ConnectionReceiver extends BroadcastReceiver {
 
         this.context = context;
         //read internet connectivity state
+        /*
 
         try {
 
@@ -53,11 +54,13 @@ public class ConnectionReceiver extends BroadcastReceiver {
                 }
 
             }
+
         } catch (NullPointerException npE) {
 
             Crashlytics.logException(npE);
 
         }
+        */
 
 
     }

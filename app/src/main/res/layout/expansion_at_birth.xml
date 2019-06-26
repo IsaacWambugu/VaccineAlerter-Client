@@ -35,6 +35,7 @@
                 android:layout_marginLeft="120dp"
                 android:layout_width="wrap_content"
                 android:text="At Birth"
+                android:layout_centerHorizontal="true"
                 android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatImageView
