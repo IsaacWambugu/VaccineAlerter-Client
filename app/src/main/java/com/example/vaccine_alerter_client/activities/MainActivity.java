@@ -26,10 +26,7 @@ import com.example.vaccine_alerter_client.util.Mtandao;
 import com.google.android.material.navigation.NavigationView;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
@@ -258,9 +255,7 @@ public class MainActivity extends BaseActivity implements LoadContentListener,
 
     private void scheduleJob() {
 
-        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-
-        if(!(new PreferenceManager(getApplicationContext()).getDate().equals(date))){
+        if(!(new PreferenceManager(getApplicationContext()).getCheckScheduler())){
 
             new PreferenceManager(getApplicationContext()).setDate();
             VaccineCheckSchedule.startVaccineChecker(this);
@@ -298,6 +293,7 @@ public class MainActivity extends BaseActivity implements LoadContentListener,
         preferenceManager.setGuardianGender(null);
         preferenceManager.setGuardianId(-1);
         preferenceManager.setGuardianName(null);
+        preferenceManager.setScheduler(false);
 
     }
 

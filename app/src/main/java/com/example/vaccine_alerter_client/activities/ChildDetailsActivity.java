@@ -11,13 +11,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.crashlytics.android.Crashlytics;
 import com.example.vaccine_alerter_client.R;
 import com.example.vaccine_alerter_client.interfaces.LoadContentListener;
 import com.example.vaccine_alerter_client.network.NetWorker;
 import com.example.vaccine_alerter_client.util.Mtandao;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
@@ -119,12 +122,13 @@ public class ChildDetailsActivity extends BaseActivity implements LoadContentLis
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-       if(id == android.R.id.home) {
-                moveToMainActivity();
+        if (id == android.R.id.home) {
+            moveToMainActivity();
 
         }
         return super.onOptionsItemSelected(item);
@@ -270,7 +274,7 @@ public class ChildDetailsActivity extends BaseActivity implements LoadContentLis
 
         } else {
 
-            showAlertSnackBar(view , "Check internet connection and try again!");
+            showAlertSnackBar(view, "Check internet connection and try again!");
             swipeRefreshLayout.setRefreshing(false);
         }
 
@@ -290,7 +294,7 @@ public class ChildDetailsActivity extends BaseActivity implements LoadContentLis
     public void onLoadErrorResponse(Pair response) {
 
         swipeRefreshLayout.setRefreshing(false);
-        showAlertSnackBar(view,response.second.toString());
+        showAlertSnackBar(view, response.second.toString());
 
     }
 
@@ -439,311 +443,147 @@ public class ChildDetailsActivity extends BaseActivity implements LoadContentLis
 
             this.bcg1_days.setText(String.valueOf(bcg1_days));
             this.bcg1_date.setText(bcg1_date_admin);
-
-
-            //extract parents
-            if (bcg1_due == 1) {
-                this.bcg1_status.setBackground(ResourcesCompat.getDrawable(getResources(),
-                        R.drawable.ic_priority_high,
-                        null));
-
-            } else if (bcg1_admin == 1) {
-
-                this.bcg1_status.setBackground(ResourcesCompat.getDrawable(getResources(),
-                        R.drawable.ic_check,
-                        null));
-            } else {
-
-                // this.bcg1_status.setText("");
-            }
-
+            if (bcg1_due == 1)
+                setVaccineAlertIcon(false, this.bcg1_status);
+            else if (bcg1_admin == 1)
+                setVaccineAlertIcon(true, this.bcg1_status);
 
             this.dpt1_days.setText(String.valueOf(dpt1_days));
             this.dpt1_date.setText(dpt1_date_admin);
+            if (dpt1_due == 1)
+                setVaccineAlertIcon(false, this.dpt1_status);
+            else if (dpt1_admin == 1)
+                setVaccineAlertIcon(true, this.dpt1_status);
 
-            if (dpt1_due == 1) {
-
-                this.dpt1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (dpt1_admin == 1) {
-
-                this.dpt1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                //this.dpt1_status.setText("");
-            }
 
             this.dpt2_days.setText(String.valueOf(dpt2_days));
             this.dpt2_date.setText(dpt2_date_admin);
+            if (dpt2_due == 1)
+                setVaccineAlertIcon(false, this.dpt2_status);
+            else if (dpt2_admin == 1)
+                setVaccineAlertIcon(true, this.dpt2_status);
 
-            if (dpt2_due == 1) {
-
-                this.dpt2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (dpt2_admin == 1) {
-
-                this.dpt2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                //this.dpt2_status.setText("");
-            }
 
             this.hepb1_days.setText(String.valueOf(hepB1_days));
             this.hepb1_date.setText(hepB1_date_admin);
+            if (hepB1_due == 1)
+                setVaccineAlertIcon(false, this.hepb1_status);
+            else if (hepB1_admin == 1)
+                setVaccineAlertIcon(true, this.hepb1_status);
 
-            if (hepB1_due == 1) {
-
-                this.hepb1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-
-            } else if (hepB1_admin == 1) {
-
-                this.hepb1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                //this.hepb1_status.setText("");
-            }
 
             this.hepb2_days.setText(String.valueOf(hepB2_days));
             this.hepb2_date.setText(hepB2_date_admin);
+            if (hepB2_due == 1)
+                setVaccineAlertIcon(false, this.hepb2_status);
+            else if (hepB2_admin == 1)
+                setVaccineAlertIcon(true, this.hepb2_status);
 
-            if (hepB2_due == 1) {
-
-                this.hepb2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (hepB2_admin == 1) {
-
-                this.hepb2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                //this.hepb2_status.setText("");
-            }
 
             this.hepb3_days.setText(String.valueOf(hepB3_days));
             this.hepb3_date.setText(hepB3_date_admin);
+            if (hepB3_due == 1)
+                setVaccineAlertIcon(false, this.hepb3_status);
+            else if (hepB3_admin == 1)
+                setVaccineAlertIcon(true, this.hepb3_status);
 
-            if (hepB3_due == 1) {
-
-                this.hepb3_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (hepB3_admin == 1) {
-
-                this.hepb3_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                // this.hepb3_status.setText("");
-            }
 
             this.hib1_days.setText(String.valueOf(hibB1_days));
             this.hib1_date.setText(hibB1_date_admin);
+            if (hibB1_due == 1)
+                setVaccineAlertIcon(false, this.hib1_status);
+            else if (hibB1_admin == 1)
+                setVaccineAlertIcon(true, this.hib1_status);
 
-            if (hibB1_due == 1) {
 
-                this.hib1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (hibB1_admin == 1) {
-
-                this.hib1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                //this.hib1_status.setText("");
-            }
 
             this.hib2_days.setText(String.valueOf(hibB2_days));
             this.hib2_date.setText(hibB2_date_admin);
+            if (hibB2_due == 1)
+                setVaccineAlertIcon(false, this.hib2_status);
+            else if (hibB2_admin == 1)
+                setVaccineAlertIcon(true, this.hib2_status);
 
-            if (hibB2_due == 1) {
 
-                this.hib2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (hibB2_admin == 1) {
-
-                this.hib2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                //  this.hib2_status.setText("");
-            }
-
-            this.meas_days.setText(String.valueOf(bcg1_days));
-            this.meas_date.setText(bcg1_date_admin);
-
-            if (dpt1_due == 1) {
-
-                this.meas_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (bcg1_admin == 1) {
-
-                this.meas_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                // this.meas_status.setText("");
-            }
-
+            this.meas_days.setText(String.valueOf(measles_days));
+            this.meas_date.setText(measles_date_admin);
+            if (measles_due == 1)
+                setVaccineAlertIcon(false, this.meas_status);
+              else if (measles_admin == 1)
+                setVaccineAlertIcon(true, this.meas_status);
 
             this.opv1_days.setText(String.valueOf(opv1_days));
             this.opv1_date.setText(opv1_date_admin);
+            if (opv1_due == 1)
+                setVaccineAlertIcon(false, this.opv1_status);
+                else if (opv1_admin == 1)
+                setVaccineAlertIcon(true, this.opv1_status);
 
-            if (opv1_due == 1) {
-
-                this.opv1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (opv1_admin == 1) {
-
-                this.opv1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                //this.opv1_status.setText("");
-            }
 
             this.opv2_days.setText(String.valueOf(opv2_days));
             this.opv2_date.setText(opv2_date_admin);
 
-            if (opv2_due == 1) {
+            if (opv2_due == 1)
+                setVaccineAlertIcon(false, this.opv2_status);
+            else if (opv2_admin == 1)
+                setVaccineAlertIcon(true, this.opv2_status);
 
-                this.opv2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (opv2_admin == 1) {
-
-                this.opv2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                // this.opv2_status.setText("");
-            }
 
             this.opv3_days.setText(String.valueOf(opv3_days));
             this.opv3_date.setText(opv3_date_admin);
+            if (opv3_due == 1)
+                setVaccineAlertIcon(false, this.opv3_status);
+            else if (opv3_admin == 1)
+                setVaccineAlertIcon(true, this.opv3_status);
 
-            if (opv3_due == 1) {
-
-                this.opv3_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (opv3_admin == 1) {
-
-                this.opv3_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                // this.opv3_status.setText("");
-            }
 
             this.pneu_days.setText(String.valueOf(pneu_days));
             this.pneu_date.setText(pneu_date_admin);
+            if (pneu_due == 1)
+                setVaccineAlertIcon(false, this.pneu_status);
+            else if (pneu_admin == 1)
+                setVaccineAlertIcon(true, this.pneu_status);
 
-            if (pneu_due == 1) {
-
-                this.pneu_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (pneu_admin == 1) {
-
-                this.pneu_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                // this.pneu_status.setText("");
-            }
 
             this.rota1_days.setText(String.valueOf(rota1_days));
             this.rota1_date.setText(rota1_date_admin);
+            if (rota1_due == 1)
+                setVaccineAlertIcon(false, this.rota1_status);
+            else if (rota1_admin == 1)
+                setVaccineAlertIcon(true, this.rota1_status);
 
-            if (rota1_due == 1) {
-
-                this.rota1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (rota1_admin == 1) {
-
-                this.rota1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                // this.rota1_status.setText("");
-            }
 
             this.rota2_days.setText(String.valueOf(rota2_days));
             this.rota2_date.setText(rota2_date_admin);
+            if (rota2_due == 1)
+                setVaccineAlertIcon(false, this.rota2_status);
+            else if (rota2_admin == 1)
+                setVaccineAlertIcon(true, this.rota2_status);
 
-            if (rota2_due == 1) {
-
-                this.rota2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (rota2_admin == 1) {
-
-                this.rota2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                //this.rota2_status.setText("");
-            }
 
             this.vitA1_days.setText(String.valueOf(vitA1_days));
             this.vitA1_date.setText(vitA1_date_admin);
+            if (vitA1_due == 1)
+                setVaccineAlertIcon(false, this.vitA1_status);
+            else if (vitA1_admin == 1)
+                setVaccineAlertIcon(true, this.vitA1_status);
 
-            if (vitA1_due == 1) {
-
-                this.rota2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (vitA1_admin == 1) {
-
-                this.rota2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-
-                // this.rota2_status.setText("");
-            }
-
-            this.vitA1_days.setText(String.valueOf(vitA1_days));
-            this.vitA1_date.setText(vitA1_date_admin);
-
-            if (vitA1_due == 1) {
-
-                this.vitA1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (vitA1_admin == 1) {
-
-                this.vitA1_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                //this.vitA1_status.setText("");
-            }
 
             this.vitA2_days.setText(String.valueOf(vitA2_days));
             this.vitA2_date.setText(vitA2_date_admin);
+            if (vitA2_due == 1)
+                setVaccineAlertIcon(false, this.vitA2_status);
+            else if (vitA2_admin == 1)
+                setVaccineAlertIcon(true, this.vitA2_status);
 
-            if (vitA2_due == 1) {
-
-                this.vitA2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-
-            } else if (vitA2_admin == 1) {
-
-                this.vitA2_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                // this.vitA2_status.setText("");@
-            }
-
-            this.meas_days.setText(String.valueOf(measles_days));
-            this.meas_date.setText(measles_date_admin);
-
-            if (measles_due == 1) {
-
-                this.meas_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (measles_admin == 1) {
-
-                this.meas_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                //this.meas_status.setText("");
-            }
 
             this.yellow_days.setText(String.valueOf(yellow_days));
             this.yellow_date.setText(yellow_date_admin);
+            if (yellow_due == 1)
+                setVaccineAlertIcon(false, this.yellow_status);
+            else if (yellow_admin == 1)
+                setVaccineAlertIcon(true, this.yellow_status);
 
-            if (yellow_due == 1) {
-
-                this.yellow_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
-
-            } else if (yellow_admin == 1) {
-
-                this.yellow_status.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
-            } else {
-
-                //this.yellow_status.setText("");
-            }
 
             //set expansion layout icon
             if (bcg1_due == 1 || opv1_due == 1 || hepB1_due == 1) {
@@ -779,7 +619,7 @@ public class ChildDetailsActivity extends BaseActivity implements LoadContentLis
         } catch (JSONException jsonE) {
 
             Crashlytics.logException(jsonE);
-            showAlertSnackBar(view,"Something went wrong! Try again later");
+            showAlertSnackBar(view, "Something went wrong! Try again later");
             afterSnackBarAction();
         }
 
@@ -789,11 +629,13 @@ public class ChildDetailsActivity extends BaseActivity implements LoadContentLis
 
         startActivity(new Intent(this, MainActivity.class));
     }
+
     private void showWarningAlertIcon(ImageView imageView) {
 
         imageView.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
         imageView.setVisibility(View.VISIBLE);
     }
+
     private void afterSnackBarAction() {
 
         new CountDownTimer(1000, 2000) {
@@ -807,6 +649,16 @@ public class ChildDetailsActivity extends BaseActivity implements LoadContentLis
 
         }.start();
     }
+
+    private void setVaccineAlertIcon(boolean check, ImageView imageView) {
+
+        if (check)
+            imageView.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_check, null));
+        else
+            imageView.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_priority_high, null));
+
+    }
+
     @Override
     public void onBackPressed() {
         moveToMainActivity();

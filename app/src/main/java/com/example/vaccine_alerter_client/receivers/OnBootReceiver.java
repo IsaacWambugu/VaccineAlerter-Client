@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
-import com.example.vaccine_alerter_client.schedulers.VaccineCheckSchedule;
 import com.example.vaccine_alerter_client.services.VaccineCheckerService;
 
 public class OnBootReceiver extends BroadcastReceiver {

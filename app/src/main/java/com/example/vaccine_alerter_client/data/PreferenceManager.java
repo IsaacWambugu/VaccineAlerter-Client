@@ -55,6 +55,17 @@ public class PreferenceManager {
 
         return sharedPref.getString("domain", "http://localhost:4000");
     }
+    public void setScheduler(Boolean isScheduled){
+
+        editor  = sharedPref.edit();
+        editor.putBoolean("scheduled",isScheduled);
+        editor.apply();
+    }
+
+    public Boolean getCheckScheduler(){
+
+        return sharedPref.getBoolean("scheduled", false);
+    }
 
     public void setGuardianName(String name){
 

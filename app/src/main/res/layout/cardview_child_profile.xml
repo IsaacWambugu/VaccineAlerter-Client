@@ -31,47 +31,58 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/child_profile_header"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true">
 
-            <ImageView
-                android:id="@+id/child_profile_image"
+            <FrameLayout
                 android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/app_name"
-                android:padding="60dp" />
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/child_profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="20dp">
+                android:paddingBottom="12dp">
 
                 <TextView
                     android:id="@+id/child_profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/black"
-                    android:paddingStart="@dimen/pad_prof" />
+                    android:paddingStart="@dimen/pad_prof"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/child_profile_dob"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/black"
-                    android:paddingStart="@dimen/pad_prof" />
+                    android:paddingStart="@dimen/pad_prof"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/child_profile_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/black"
-                    android:paddingStart="@dimen/pad_prof" />
+                    android:paddingStart="@dimen/pad_prof"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
         </LinearLayout>
