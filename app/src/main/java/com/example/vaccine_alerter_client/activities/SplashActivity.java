@@ -47,7 +47,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void getDomain() {
-        Log.d("---->","Get Domain");
+        Log.d("---->", "Get Domain");
 
         if (Mtandao.checkInternet(getApplicationContext())) {
 
@@ -65,8 +65,8 @@ public class SplashActivity extends BaseActivity {
                                 Const.setDomain(domain);
                                 new PreferenceManager(getApplicationContext()).setDomain(domain);
                                 // mFirebaseRemoteConfig.activateFetched();
-                                showSplashScreen();
 
+                                moveToHome();
                             } else {
 
                                 showSnackBar();
@@ -74,62 +74,9 @@ public class SplashActivity extends BaseActivity {
 
                         }
                     });
-        }else
+        } else
             showSnackBar();
 
-
-/*
-
-        mFirebaseRemoteConfig.reset();
-        mFirebaseRemoteConfig.ensureInitialized();
-        mFirebaseRemoteConfig.fetchAndActivate()
-                .addOnCompleteListener(SplashActivity.this, new OnCompleteListener<Boolean>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Boolean> task) {
-                        if (task.isSuccessful()) {
-                            boolean updated = task.getResult();
-                            String currentDomain = new PreferenceManager(getApplicationContext()).getDomain();
-                            if(updated){
-
-                                Log.d("--->","fetch and updated");
-
-
-                                Log.d("--->",mFirebaseRemoteConfig.getString("domain"));
-                            }else{
-                                Log.d("--->","fetch but not updated");
-                                Const.setDomain(currentDomain);
-
-                            }
-
-
-                        } else {
-                            Log.d("--->","fetch failed");
-                            }
-
-                    }
-                });
-                */
-    }
-
-    private void showSplashScreen() {
-
-        Thread background = new Thread() {
-            public void run() {
-                try {
-                    // Thread will sleep for 5 seconds
-                    sleep(2 * 1000);
-                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                } catch (Exception e) {
-
-                    Crashlytics.logException(e);
-                    exitApp();
-                }
-            }
-        };
-
-        background.start();
 
     }
 
@@ -145,5 +92,10 @@ public class SplashActivity extends BaseActivity {
                     }
                 }).show();
 
+    }
+    private void moveToHome(){
+        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

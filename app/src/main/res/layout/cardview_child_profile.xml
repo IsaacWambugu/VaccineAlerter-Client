@@ -42,7 +42,6 @@
                 android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
-
                 android:padding="10dp">
 
                 <ImageView
