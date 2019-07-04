@@ -5,10 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.crashlytics.android.Crashlytics;
 import com.example.vaccine_alerter_client.R;
 import com.example.vaccine_alerter_client.data.Const;
@@ -19,7 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-
 import io.fabric.sdk.android.Fabric;
 
 public class SplashActivity extends BaseActivity {
@@ -42,7 +39,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getDomain();
+      //  getDomain();
 
     }
 

@@ -9,7 +9,7 @@
     <dimen name="icon_star">25dp</dimen>
     <dimen name="icon_text">22dp</dimen>
     <dimen name="timestamp">12dp</dimen>
-    <dimen name="pad_prof">10sp</dimen>
+    <dimen name="pad_prof">20sp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="app_bar_height">200dp</dimen>
