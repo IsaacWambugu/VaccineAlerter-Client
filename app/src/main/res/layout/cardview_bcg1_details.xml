@@ -69,7 +69,6 @@
                 android:text="@string/bcg"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:textColor="#ff0000"
-
                 android:textSize="@dimen/vaccine_title_size"/>
 
             <LinearLayout

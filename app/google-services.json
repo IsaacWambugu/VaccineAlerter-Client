@@ -79,6 +79,43 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263985329021:android:e19a00f547d268f4",
+        "android_client_info": {
+          "package_name": "izo.apps.vaccine_alerter_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263985329021-e84qsh78a998fvvvhbfdaus1113rn185.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "izo.apps.vaccine_alerter_client",
+            "certificate_hash": "cd19592530170e58230550532894a887afce7198"
+          }
+        },
+        {
+          "client_id": "263985329021-97hgtchl3slu74nk472ndkasnhqmorte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDWiaULfxc1fdejp26ZIzGFriBrYui1pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263985329021-97hgtchl3slu74nk472ndkasnhqmorte.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

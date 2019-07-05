@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.vaccine_alerter_client">
+    package="izo.apps.vaccine_alerter_client">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -96,9 +96,9 @@
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="987f233f2c6f9a9266beb8fd99e4d95ab4674b36" />
     </application>
-
 </manifest>
